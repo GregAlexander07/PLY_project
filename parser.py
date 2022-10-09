@@ -2,6 +2,7 @@ import lexer
 import ply.yacc as yacc
 import logging
 
+# logger set up for debugging purposes
 logging.basicConfig(
     level=logging.DEBUG,
     filename="parselog.txt",
@@ -12,6 +13,13 @@ logging.basicConfig(
 log = logging.getLogger()
 
 tokens = lexer.tokens
+
+precedence = (('left', 'COMMA'),
+              ('left', 'PLUS', 'MINUS'),
+              ('left', 'STAR', 'SLASH'),
+              )
+
+# Identify starting line
 start = 'defdefs'
 
 
@@ -267,7 +275,7 @@ def p_argspot(p):
 
 # args -> expr COMMA args
 def p_expr_comma_args(p):
-    'expr : expr COMMA args'
+    'args : expr COMMA args'
     pass
 
 
@@ -287,13 +295,12 @@ def p_error(p):
             break
     parser.restart()
 
-
+#Create parser or yacc object
 parser = yacc.yacc(debug=True)
 
-# result = parser.parse("def f(a:Int, b:Int):Int = { var c:Int; def g(a:Int, b:(Int)=>Int):Int = { b(a)} def h(
-# c:Int):Int = { def g():Int = { c-b}")
-
-
+# result = parser.parse("def f(a:Int, b:Int):Int = { var c:Int; def g(a:Int, b:(Int)=>Int):Int = { b(a)} def h(c:Int):Int = { def g():Int = { c-b}")
+#def f(a:Int, b:Int):Int = { var c:Int;def g(a:Int, b:(Int)=>Int):Int = { b(a)}def h(c:Int):Int = {=>def g():Int = { c-b}g() }c = a+b;g(c,h)}
+# Enter Input to parse
 while True:
     try:
         test = input('Enter Input:  ')

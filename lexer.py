@@ -5,8 +5,8 @@ tokens = ['ID', 'NUM', 'LPAREN', 'RPAREN', 'LBRACE', 'RBRACE',
           'PLUS', 'MINUS', 'STAR', 'SLASH', 'PCT', 'COMMA',
           'SEMI', 'COLON', 'ARROW', 'COMMENT', 'WHITESPACE']
 
-reserved = {"def": "DEF", "if": "IF", "var": "VAR",
-            "Int": "INT","else": "ELSE", }
+reserved = {"def": "DEF","var": "VAR", "if": "IF",
+            "Int": "INT", "else": "ELSE", }
 
 # t_OPERATOR = r"(\*|\/|\=|\!=|\<=|\>=|\<|\>|\&)"
 # Define tokens, will be imported into the parser file
@@ -34,11 +34,13 @@ t_SEMI = r';'
 t_COLON = r':'
 t_ARROW = r'=>'
 
+
 # Define REGEX rules
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
     t.type = reserved.get(t.value, "ID")
     return t
+
 
 def t_NUM(t):
     r'[0-9]+'
@@ -55,10 +57,10 @@ def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 
+
 t_ignore = " \t"
 
-
-# Creat lex object
+# Create lex object
 lexer = lex.lex()
 
 # data = ''''''
