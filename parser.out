@@ -1,0 +1,1562 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COMMENT
+    WHITESPACE
+
+Grammar
+
+Rule 0     S' -> defdefs
+Rule 1     defdefs -> defdef defdefs
+Rule 2     defdefs -> defdef
+Rule 3     defdef -> DEF ID LPAREN parmsopt RPAREN COLON type BECOMES LBRACE vardefsopt defdefsopt expras RBRACE
+Rule 4     parmsopt -> parms
+Rule 5     parmsopt -> <empty>
+Rule 6     parms -> vardef COMMA parms
+Rule 7     parms -> vardef
+Rule 8     vardef -> ID COLON type
+Rule 9     type -> INT
+Rule 10    type -> LPAREN typesopt RPAREN ARROW type
+Rule 11    typesopt -> types
+Rule 12    typesopt -> <empty>
+Rule 13    types -> type COMMA types
+Rule 14    types -> type
+Rule 15    vardefsopt -> VAR vardef SEMI vardefsopt
+Rule 16    vardefsopt -> <empty>
+Rule 17    defdefsopt -> defdefs
+Rule 18    defdefsopt -> <empty>
+Rule 19    expras -> expra SEMI expras
+Rule 20    expras -> expra
+Rule 21    expra -> ID BECOMES expr
+Rule 22    expra -> expr
+Rule 23    expr -> IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+Rule 24    expr -> term
+Rule 25    expr -> expr PLUS term
+Rule 26    expr -> expr MINUS term
+Rule 27    term -> factor
+Rule 28    term -> term STAR factor
+Rule 29    term -> term SLASH factor
+Rule 30    term -> term PCT factor
+Rule 31    factor -> ID
+Rule 32    factor -> NUM
+Rule 33    factor -> LPAREN expr RPAREN
+Rule 34    factor -> factor LPAREN argsopt RPAREN
+Rule 35    test -> expr NE expr
+Rule 36    test -> expr LT expr
+Rule 37    test -> expr LE expr
+Rule 38    test -> expr GE expr
+Rule 39    test -> expr GT expr
+Rule 40    test -> expr EQ expr
+Rule 41    argsopt -> args
+Rule 42    argsopt -> <empty>
+Rule 43    expr -> expr COMMA args
+Rule 44    args -> expr
+
+Terminals, with rules where they appear
+
+ARROW                : 10
+BECOMES              : 3 21
+COLON                : 3 8
+COMMA                : 6 13 43
+COMMENT              : 
+DEF                  : 3
+ELSE                 : 23
+EQ                   : 40
+GE                   : 38
+GT                   : 39
+ID                   : 3 8 21 31
+IF                   : 23
+INT                  : 9
+LBRACE               : 3 23 23
+LE                   : 37
+LPAREN               : 3 10 23 33 34
+LT                   : 36
+MINUS                : 26
+NE                   : 35
+NUM                  : 32
+PCT                  : 30
+PLUS                 : 25
+RBRACE               : 3 23 23
+RPAREN               : 3 10 23 33 34
+SEMI                 : 15 19
+SLASH                : 29
+STAR                 : 28
+VAR                  : 15
+WHITESPACE           : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+args                 : 41 43
+argsopt              : 34
+defdef               : 1 2
+defdefs              : 1 17 0
+defdefsopt           : 3
+expr                 : 21 22 25 26 33 35 35 36 36 37 37 38 38 39 39 40 40 43 44
+expra                : 19 20
+expras               : 3 19 23 23
+factor               : 27 28 29 30 34
+parms                : 4 6
+parmsopt             : 3
+term                 : 24 25 26 28 29 30
+test                 : 23
+type                 : 3 8 10 13 14
+types                : 11 13
+typesopt             : 10
+vardef               : 6 7 15
+vardefsopt           : 3 15
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . defdefs
+    (1) defdefs -> . defdef defdefs
+    (2) defdefs -> . defdef
+    (3) defdef -> . DEF ID LPAREN parmsopt RPAREN COLON type BECOMES LBRACE vardefsopt defdefsopt expras RBRACE
+
+    DEF             shift and go to state 3
+
+    defdefs                        shift and go to state 1
+    defdef                         shift and go to state 2
+
+state 1
+
+    (0) S' -> defdefs .
+
+
+
+state 2
+
+    (1) defdefs -> defdef . defdefs
+    (2) defdefs -> defdef .
+    (1) defdefs -> . defdef defdefs
+    (2) defdefs -> . defdef
+    (3) defdef -> . DEF ID LPAREN parmsopt RPAREN COLON type BECOMES LBRACE vardefsopt defdefsopt expras RBRACE
+
+    $end            reduce using rule 2 (defdefs -> defdef .)
+    ID              reduce using rule 2 (defdefs -> defdef .)
+    IF              reduce using rule 2 (defdefs -> defdef .)
+    NUM             reduce using rule 2 (defdefs -> defdef .)
+    LPAREN          reduce using rule 2 (defdefs -> defdef .)
+    DEF             shift and go to state 3
+
+    defdef                         shift and go to state 2
+    defdefs                        shift and go to state 4
+
+state 3
+
+    (3) defdef -> DEF . ID LPAREN parmsopt RPAREN COLON type BECOMES LBRACE vardefsopt defdefsopt expras RBRACE
+
+    ID              shift and go to state 5
+
+
+state 4
+
+    (1) defdefs -> defdef defdefs .
+
+    $end            reduce using rule 1 (defdefs -> defdef defdefs .)
+    ID              reduce using rule 1 (defdefs -> defdef defdefs .)
+    IF              reduce using rule 1 (defdefs -> defdef defdefs .)
+    NUM             reduce using rule 1 (defdefs -> defdef defdefs .)
+    LPAREN          reduce using rule 1 (defdefs -> defdef defdefs .)
+
+
+state 5
+
+    (3) defdef -> DEF ID . LPAREN parmsopt RPAREN COLON type BECOMES LBRACE vardefsopt defdefsopt expras RBRACE
+
+    LPAREN          shift and go to state 6
+
+
+state 6
+
+    (3) defdef -> DEF ID LPAREN . parmsopt RPAREN COLON type BECOMES LBRACE vardefsopt defdefsopt expras RBRACE
+    (4) parmsopt -> . parms
+    (5) parmsopt -> .
+    (6) parms -> . vardef COMMA parms
+    (7) parms -> . vardef
+    (8) vardef -> . ID COLON type
+
+    RPAREN          reduce using rule 5 (parmsopt -> .)
+    ID              shift and go to state 7
+
+    parmsopt                       shift and go to state 8
+    parms                          shift and go to state 9
+    vardef                         shift and go to state 10
+
+state 7
+
+    (8) vardef -> ID . COLON type
+
+    COLON           shift and go to state 11
+
+
+state 8
+
+    (3) defdef -> DEF ID LPAREN parmsopt . RPAREN COLON type BECOMES LBRACE vardefsopt defdefsopt expras RBRACE
+
+    RPAREN          shift and go to state 12
+
+
+state 9
+
+    (4) parmsopt -> parms .
+
+    RPAREN          reduce using rule 4 (parmsopt -> parms .)
+
+
+state 10
+
+    (6) parms -> vardef . COMMA parms
+    (7) parms -> vardef .
+
+    COMMA           shift and go to state 13
+    RPAREN          reduce using rule 7 (parms -> vardef .)
+
+
+state 11
+
+    (8) vardef -> ID COLON . type
+    (9) type -> . INT
+    (10) type -> . LPAREN typesopt RPAREN ARROW type
+
+    INT             shift and go to state 15
+    LPAREN          shift and go to state 16
+
+    type                           shift and go to state 14
+
+state 12
+
+    (3) defdef -> DEF ID LPAREN parmsopt RPAREN . COLON type BECOMES LBRACE vardefsopt defdefsopt expras RBRACE
+
+    COLON           shift and go to state 17
+
+
+state 13
+
+    (6) parms -> vardef COMMA . parms
+    (6) parms -> . vardef COMMA parms
+    (7) parms -> . vardef
+    (8) vardef -> . ID COLON type
+
+    ID              shift and go to state 7
+
+    vardef                         shift and go to state 10
+    parms                          shift and go to state 18
+
+state 14
+
+    (8) vardef -> ID COLON type .
+
+    COMMA           reduce using rule 8 (vardef -> ID COLON type .)
+    RPAREN          reduce using rule 8 (vardef -> ID COLON type .)
+    SEMI            reduce using rule 8 (vardef -> ID COLON type .)
+
+
+state 15
+
+    (9) type -> INT .
+
+    COMMA           reduce using rule 9 (type -> INT .)
+    RPAREN          reduce using rule 9 (type -> INT .)
+    SEMI            reduce using rule 9 (type -> INT .)
+    BECOMES         reduce using rule 9 (type -> INT .)
+
+
+state 16
+
+    (10) type -> LPAREN . typesopt RPAREN ARROW type
+    (11) typesopt -> . types
+    (12) typesopt -> .
+    (13) types -> . type COMMA types
+    (14) types -> . type
+    (9) type -> . INT
+    (10) type -> . LPAREN typesopt RPAREN ARROW type
+
+    RPAREN          reduce using rule 12 (typesopt -> .)
+    INT             shift and go to state 15
+    LPAREN          shift and go to state 16
+
+    typesopt                       shift and go to state 19
+    type                           shift and go to state 20
+    types                          shift and go to state 21
+
+state 17
+
+    (3) defdef -> DEF ID LPAREN parmsopt RPAREN COLON . type BECOMES LBRACE vardefsopt defdefsopt expras RBRACE
+    (9) type -> . INT
+    (10) type -> . LPAREN typesopt RPAREN ARROW type
+
+    INT             shift and go to state 15
+    LPAREN          shift and go to state 16
+
+    type                           shift and go to state 22
+
+state 18
+
+    (6) parms -> vardef COMMA parms .
+
+    RPAREN          reduce using rule 6 (parms -> vardef COMMA parms .)
+
+
+state 19
+
+    (10) type -> LPAREN typesopt . RPAREN ARROW type
+
+    RPAREN          shift and go to state 23
+
+
+state 20
+
+    (13) types -> type . COMMA types
+    (14) types -> type .
+
+    COMMA           shift and go to state 24
+    RPAREN          reduce using rule 14 (types -> type .)
+
+
+state 21
+
+    (11) typesopt -> types .
+
+    RPAREN          reduce using rule 11 (typesopt -> types .)
+
+
+state 22
+
+    (3) defdef -> DEF ID LPAREN parmsopt RPAREN COLON type . BECOMES LBRACE vardefsopt defdefsopt expras RBRACE
+
+    BECOMES         shift and go to state 25
+
+
+state 23
+
+    (10) type -> LPAREN typesopt RPAREN . ARROW type
+
+    ARROW           shift and go to state 26
+
+
+state 24
+
+    (13) types -> type COMMA . types
+    (13) types -> . type COMMA types
+    (14) types -> . type
+    (9) type -> . INT
+    (10) type -> . LPAREN typesopt RPAREN ARROW type
+
+    INT             shift and go to state 15
+    LPAREN          shift and go to state 16
+
+    type                           shift and go to state 20
+    types                          shift and go to state 27
+
+state 25
+
+    (3) defdef -> DEF ID LPAREN parmsopt RPAREN COLON type BECOMES . LBRACE vardefsopt defdefsopt expras RBRACE
+
+    LBRACE          shift and go to state 28
+
+
+state 26
+
+    (10) type -> LPAREN typesopt RPAREN ARROW . type
+    (9) type -> . INT
+    (10) type -> . LPAREN typesopt RPAREN ARROW type
+
+    INT             shift and go to state 15
+    LPAREN          shift and go to state 16
+
+    type                           shift and go to state 29
+
+state 27
+
+    (13) types -> type COMMA types .
+
+    RPAREN          reduce using rule 13 (types -> type COMMA types .)
+
+
+state 28
+
+    (3) defdef -> DEF ID LPAREN parmsopt RPAREN COLON type BECOMES LBRACE . vardefsopt defdefsopt expras RBRACE
+    (15) vardefsopt -> . VAR vardef SEMI vardefsopt
+    (16) vardefsopt -> .
+
+    VAR             shift and go to state 31
+    DEF             reduce using rule 16 (vardefsopt -> .)
+    ID              reduce using rule 16 (vardefsopt -> .)
+    IF              reduce using rule 16 (vardefsopt -> .)
+    NUM             reduce using rule 16 (vardefsopt -> .)
+    LPAREN          reduce using rule 16 (vardefsopt -> .)
+
+    vardefsopt                     shift and go to state 30
+
+state 29
+
+    (10) type -> LPAREN typesopt RPAREN ARROW type .
+
+    COMMA           reduce using rule 10 (type -> LPAREN typesopt RPAREN ARROW type .)
+    RPAREN          reduce using rule 10 (type -> LPAREN typesopt RPAREN ARROW type .)
+    SEMI            reduce using rule 10 (type -> LPAREN typesopt RPAREN ARROW type .)
+    BECOMES         reduce using rule 10 (type -> LPAREN typesopt RPAREN ARROW type .)
+
+
+state 30
+
+    (3) defdef -> DEF ID LPAREN parmsopt RPAREN COLON type BECOMES LBRACE vardefsopt . defdefsopt expras RBRACE
+    (17) defdefsopt -> . defdefs
+    (18) defdefsopt -> .
+    (1) defdefs -> . defdef defdefs
+    (2) defdefs -> . defdef
+    (3) defdef -> . DEF ID LPAREN parmsopt RPAREN COLON type BECOMES LBRACE vardefsopt defdefsopt expras RBRACE
+
+    ID              reduce using rule 18 (defdefsopt -> .)
+    IF              reduce using rule 18 (defdefsopt -> .)
+    NUM             reduce using rule 18 (defdefsopt -> .)
+    LPAREN          reduce using rule 18 (defdefsopt -> .)
+    DEF             shift and go to state 3
+
+    defdefsopt                     shift and go to state 32
+    defdefs                        shift and go to state 33
+    defdef                         shift and go to state 2
+
+state 31
+
+    (15) vardefsopt -> VAR . vardef SEMI vardefsopt
+    (8) vardef -> . ID COLON type
+
+    ID              shift and go to state 7
+
+    vardef                         shift and go to state 34
+
+state 32
+
+    (3) defdef -> DEF ID LPAREN parmsopt RPAREN COLON type BECOMES LBRACE vardefsopt defdefsopt . expras RBRACE
+    (19) expras -> . expra SEMI expras
+    (20) expras -> . expra
+    (21) expra -> . ID BECOMES expr
+    (22) expra -> . expr
+    (23) expr -> . IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+    (24) expr -> . term
+    (25) expr -> . expr PLUS term
+    (26) expr -> . expr MINUS term
+    (43) expr -> . expr COMMA args
+    (27) term -> . factor
+    (28) term -> . term STAR factor
+    (29) term -> . term SLASH factor
+    (30) term -> . term PCT factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    ID              shift and go to state 35
+    IF              shift and go to state 40
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    expras                         shift and go to state 37
+    expra                          shift and go to state 38
+    expr                           shift and go to state 39
+    term                           shift and go to state 41
+    factor                         shift and go to state 42
+
+state 33
+
+    (17) defdefsopt -> defdefs .
+
+    ID              reduce using rule 17 (defdefsopt -> defdefs .)
+    IF              reduce using rule 17 (defdefsopt -> defdefs .)
+    NUM             reduce using rule 17 (defdefsopt -> defdefs .)
+    LPAREN          reduce using rule 17 (defdefsopt -> defdefs .)
+
+
+state 34
+
+    (15) vardefsopt -> VAR vardef . SEMI vardefsopt
+
+    SEMI            shift and go to state 44
+
+
+state 35
+
+    (21) expra -> ID . BECOMES expr
+    (31) factor -> ID .
+
+    BECOMES         shift and go to state 45
+    LPAREN          reduce using rule 31 (factor -> ID .)
+    STAR            reduce using rule 31 (factor -> ID .)
+    SLASH           reduce using rule 31 (factor -> ID .)
+    PCT             reduce using rule 31 (factor -> ID .)
+    PLUS            reduce using rule 31 (factor -> ID .)
+    MINUS           reduce using rule 31 (factor -> ID .)
+    COMMA           reduce using rule 31 (factor -> ID .)
+    SEMI            reduce using rule 31 (factor -> ID .)
+    RBRACE          reduce using rule 31 (factor -> ID .)
+
+
+state 36
+
+    (33) factor -> LPAREN . expr RPAREN
+    (23) expr -> . IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+    (24) expr -> . term
+    (25) expr -> . expr PLUS term
+    (26) expr -> . expr MINUS term
+    (43) expr -> . expr COMMA args
+    (27) term -> . factor
+    (28) term -> . term STAR factor
+    (29) term -> . term SLASH factor
+    (30) term -> . term PCT factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    IF              shift and go to state 40
+    ID              shift and go to state 47
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    expr                           shift and go to state 46
+    term                           shift and go to state 41
+    factor                         shift and go to state 42
+
+state 37
+
+    (3) defdef -> DEF ID LPAREN parmsopt RPAREN COLON type BECOMES LBRACE vardefsopt defdefsopt expras . RBRACE
+
+    RBRACE          shift and go to state 48
+
+
+state 38
+
+    (19) expras -> expra . SEMI expras
+    (20) expras -> expra .
+
+    SEMI            shift and go to state 49
+    RBRACE          reduce using rule 20 (expras -> expra .)
+
+
+state 39
+
+    (22) expra -> expr .
+    (25) expr -> expr . PLUS term
+    (26) expr -> expr . MINUS term
+    (43) expr -> expr . COMMA args
+
+    SEMI            reduce using rule 22 (expra -> expr .)
+    RBRACE          reduce using rule 22 (expra -> expr .)
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+    COMMA           shift and go to state 52
+
+
+state 40
+
+    (23) expr -> IF . LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+
+    LPAREN          shift and go to state 53
+
+
+state 41
+
+    (24) expr -> term .
+    (28) term -> term . STAR factor
+    (29) term -> term . SLASH factor
+    (30) term -> term . PCT factor
+
+    PLUS            reduce using rule 24 (expr -> term .)
+    MINUS           reduce using rule 24 (expr -> term .)
+    COMMA           reduce using rule 24 (expr -> term .)
+    SEMI            reduce using rule 24 (expr -> term .)
+    RBRACE          reduce using rule 24 (expr -> term .)
+    RPAREN          reduce using rule 24 (expr -> term .)
+    NE              reduce using rule 24 (expr -> term .)
+    LT              reduce using rule 24 (expr -> term .)
+    LE              reduce using rule 24 (expr -> term .)
+    GE              reduce using rule 24 (expr -> term .)
+    GT              reduce using rule 24 (expr -> term .)
+    EQ              reduce using rule 24 (expr -> term .)
+    STAR            shift and go to state 54
+    SLASH           shift and go to state 55
+    PCT             shift and go to state 56
+
+
+state 42
+
+    (27) term -> factor .
+    (34) factor -> factor . LPAREN argsopt RPAREN
+
+    STAR            reduce using rule 27 (term -> factor .)
+    SLASH           reduce using rule 27 (term -> factor .)
+    PCT             reduce using rule 27 (term -> factor .)
+    PLUS            reduce using rule 27 (term -> factor .)
+    MINUS           reduce using rule 27 (term -> factor .)
+    COMMA           reduce using rule 27 (term -> factor .)
+    SEMI            reduce using rule 27 (term -> factor .)
+    RBRACE          reduce using rule 27 (term -> factor .)
+    RPAREN          reduce using rule 27 (term -> factor .)
+    NE              reduce using rule 27 (term -> factor .)
+    LT              reduce using rule 27 (term -> factor .)
+    LE              reduce using rule 27 (term -> factor .)
+    GE              reduce using rule 27 (term -> factor .)
+    GT              reduce using rule 27 (term -> factor .)
+    EQ              reduce using rule 27 (term -> factor .)
+    LPAREN          shift and go to state 57
+
+
+state 43
+
+    (32) factor -> NUM .
+
+    LPAREN          reduce using rule 32 (factor -> NUM .)
+    STAR            reduce using rule 32 (factor -> NUM .)
+    SLASH           reduce using rule 32 (factor -> NUM .)
+    PCT             reduce using rule 32 (factor -> NUM .)
+    PLUS            reduce using rule 32 (factor -> NUM .)
+    MINUS           reduce using rule 32 (factor -> NUM .)
+    COMMA           reduce using rule 32 (factor -> NUM .)
+    SEMI            reduce using rule 32 (factor -> NUM .)
+    RBRACE          reduce using rule 32 (factor -> NUM .)
+    RPAREN          reduce using rule 32 (factor -> NUM .)
+    NE              reduce using rule 32 (factor -> NUM .)
+    LT              reduce using rule 32 (factor -> NUM .)
+    LE              reduce using rule 32 (factor -> NUM .)
+    GE              reduce using rule 32 (factor -> NUM .)
+    GT              reduce using rule 32 (factor -> NUM .)
+    EQ              reduce using rule 32 (factor -> NUM .)
+
+
+state 44
+
+    (15) vardefsopt -> VAR vardef SEMI . vardefsopt
+    (15) vardefsopt -> . VAR vardef SEMI vardefsopt
+    (16) vardefsopt -> .
+
+    VAR             shift and go to state 31
+    DEF             reduce using rule 16 (vardefsopt -> .)
+    ID              reduce using rule 16 (vardefsopt -> .)
+    IF              reduce using rule 16 (vardefsopt -> .)
+    NUM             reduce using rule 16 (vardefsopt -> .)
+    LPAREN          reduce using rule 16 (vardefsopt -> .)
+
+    vardefsopt                     shift and go to state 58
+
+state 45
+
+    (21) expra -> ID BECOMES . expr
+    (23) expr -> . IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+    (24) expr -> . term
+    (25) expr -> . expr PLUS term
+    (26) expr -> . expr MINUS term
+    (43) expr -> . expr COMMA args
+    (27) term -> . factor
+    (28) term -> . term STAR factor
+    (29) term -> . term SLASH factor
+    (30) term -> . term PCT factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    IF              shift and go to state 40
+    ID              shift and go to state 47
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    expr                           shift and go to state 59
+    term                           shift and go to state 41
+    factor                         shift and go to state 42
+
+state 46
+
+    (33) factor -> LPAREN expr . RPAREN
+    (25) expr -> expr . PLUS term
+    (26) expr -> expr . MINUS term
+    (43) expr -> expr . COMMA args
+
+    RPAREN          shift and go to state 60
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+    COMMA           shift and go to state 52
+
+
+state 47
+
+    (31) factor -> ID .
+
+    LPAREN          reduce using rule 31 (factor -> ID .)
+    STAR            reduce using rule 31 (factor -> ID .)
+    SLASH           reduce using rule 31 (factor -> ID .)
+    PCT             reduce using rule 31 (factor -> ID .)
+    RPAREN          reduce using rule 31 (factor -> ID .)
+    PLUS            reduce using rule 31 (factor -> ID .)
+    MINUS           reduce using rule 31 (factor -> ID .)
+    COMMA           reduce using rule 31 (factor -> ID .)
+    SEMI            reduce using rule 31 (factor -> ID .)
+    RBRACE          reduce using rule 31 (factor -> ID .)
+    NE              reduce using rule 31 (factor -> ID .)
+    LT              reduce using rule 31 (factor -> ID .)
+    LE              reduce using rule 31 (factor -> ID .)
+    GE              reduce using rule 31 (factor -> ID .)
+    GT              reduce using rule 31 (factor -> ID .)
+    EQ              reduce using rule 31 (factor -> ID .)
+
+
+state 48
+
+    (3) defdef -> DEF ID LPAREN parmsopt RPAREN COLON type BECOMES LBRACE vardefsopt defdefsopt expras RBRACE .
+
+    DEF             reduce using rule 3 (defdef -> DEF ID LPAREN parmsopt RPAREN COLON type BECOMES LBRACE vardefsopt defdefsopt expras RBRACE .)
+    $end            reduce using rule 3 (defdef -> DEF ID LPAREN parmsopt RPAREN COLON type BECOMES LBRACE vardefsopt defdefsopt expras RBRACE .)
+    ID              reduce using rule 3 (defdef -> DEF ID LPAREN parmsopt RPAREN COLON type BECOMES LBRACE vardefsopt defdefsopt expras RBRACE .)
+    IF              reduce using rule 3 (defdef -> DEF ID LPAREN parmsopt RPAREN COLON type BECOMES LBRACE vardefsopt defdefsopt expras RBRACE .)
+    NUM             reduce using rule 3 (defdef -> DEF ID LPAREN parmsopt RPAREN COLON type BECOMES LBRACE vardefsopt defdefsopt expras RBRACE .)
+    LPAREN          reduce using rule 3 (defdef -> DEF ID LPAREN parmsopt RPAREN COLON type BECOMES LBRACE vardefsopt defdefsopt expras RBRACE .)
+
+
+state 49
+
+    (19) expras -> expra SEMI . expras
+    (19) expras -> . expra SEMI expras
+    (20) expras -> . expra
+    (21) expra -> . ID BECOMES expr
+    (22) expra -> . expr
+    (23) expr -> . IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+    (24) expr -> . term
+    (25) expr -> . expr PLUS term
+    (26) expr -> . expr MINUS term
+    (43) expr -> . expr COMMA args
+    (27) term -> . factor
+    (28) term -> . term STAR factor
+    (29) term -> . term SLASH factor
+    (30) term -> . term PCT factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    ID              shift and go to state 35
+    IF              shift and go to state 40
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    expra                          shift and go to state 38
+    expras                         shift and go to state 61
+    expr                           shift and go to state 39
+    term                           shift and go to state 41
+    factor                         shift and go to state 42
+
+state 50
+
+    (25) expr -> expr PLUS . term
+    (27) term -> . factor
+    (28) term -> . term STAR factor
+    (29) term -> . term SLASH factor
+    (30) term -> . term PCT factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    ID              shift and go to state 47
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    term                           shift and go to state 62
+    factor                         shift and go to state 42
+
+state 51
+
+    (26) expr -> expr MINUS . term
+    (27) term -> . factor
+    (28) term -> . term STAR factor
+    (29) term -> . term SLASH factor
+    (30) term -> . term PCT factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    ID              shift and go to state 47
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    term                           shift and go to state 63
+    factor                         shift and go to state 42
+
+state 52
+
+    (43) expr -> expr COMMA . args
+    (44) args -> . expr
+    (23) expr -> . IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+    (24) expr -> . term
+    (25) expr -> . expr PLUS term
+    (26) expr -> . expr MINUS term
+    (43) expr -> . expr COMMA args
+    (27) term -> . factor
+    (28) term -> . term STAR factor
+    (29) term -> . term SLASH factor
+    (30) term -> . term PCT factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    IF              shift and go to state 40
+    ID              shift and go to state 47
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    expr                           shift and go to state 64
+    args                           shift and go to state 65
+    term                           shift and go to state 41
+    factor                         shift and go to state 42
+
+state 53
+
+    (23) expr -> IF LPAREN . test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+    (35) test -> . expr NE expr
+    (36) test -> . expr LT expr
+    (37) test -> . expr LE expr
+    (38) test -> . expr GE expr
+    (39) test -> . expr GT expr
+    (40) test -> . expr EQ expr
+    (23) expr -> . IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+    (24) expr -> . term
+    (25) expr -> . expr PLUS term
+    (26) expr -> . expr MINUS term
+    (43) expr -> . expr COMMA args
+    (27) term -> . factor
+    (28) term -> . term STAR factor
+    (29) term -> . term SLASH factor
+    (30) term -> . term PCT factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    IF              shift and go to state 40
+    ID              shift and go to state 47
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    test                           shift and go to state 66
+    expr                           shift and go to state 67
+    term                           shift and go to state 41
+    factor                         shift and go to state 42
+
+state 54
+
+    (28) term -> term STAR . factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    ID              shift and go to state 47
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    factor                         shift and go to state 68
+
+state 55
+
+    (29) term -> term SLASH . factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    ID              shift and go to state 47
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    factor                         shift and go to state 69
+
+state 56
+
+    (30) term -> term PCT . factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    ID              shift and go to state 47
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    factor                         shift and go to state 70
+
+state 57
+
+    (34) factor -> factor LPAREN . argsopt RPAREN
+    (41) argsopt -> . args
+    (42) argsopt -> .
+    (44) args -> . expr
+    (23) expr -> . IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+    (24) expr -> . term
+    (25) expr -> . expr PLUS term
+    (26) expr -> . expr MINUS term
+    (43) expr -> . expr COMMA args
+    (27) term -> . factor
+    (28) term -> . term STAR factor
+    (29) term -> . term SLASH factor
+    (30) term -> . term PCT factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    RPAREN          reduce using rule 42 (argsopt -> .)
+    IF              shift and go to state 40
+    ID              shift and go to state 47
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    factor                         shift and go to state 42
+    argsopt                        shift and go to state 71
+    args                           shift and go to state 72
+    expr                           shift and go to state 64
+    term                           shift and go to state 41
+
+state 58
+
+    (15) vardefsopt -> VAR vardef SEMI vardefsopt .
+
+    DEF             reduce using rule 15 (vardefsopt -> VAR vardef SEMI vardefsopt .)
+    ID              reduce using rule 15 (vardefsopt -> VAR vardef SEMI vardefsopt .)
+    IF              reduce using rule 15 (vardefsopt -> VAR vardef SEMI vardefsopt .)
+    NUM             reduce using rule 15 (vardefsopt -> VAR vardef SEMI vardefsopt .)
+    LPAREN          reduce using rule 15 (vardefsopt -> VAR vardef SEMI vardefsopt .)
+
+
+state 59
+
+    (21) expra -> ID BECOMES expr .
+    (25) expr -> expr . PLUS term
+    (26) expr -> expr . MINUS term
+    (43) expr -> expr . COMMA args
+
+    SEMI            reduce using rule 21 (expra -> ID BECOMES expr .)
+    RBRACE          reduce using rule 21 (expra -> ID BECOMES expr .)
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+    COMMA           shift and go to state 52
+
+
+state 60
+
+    (33) factor -> LPAREN expr RPAREN .
+
+    LPAREN          reduce using rule 33 (factor -> LPAREN expr RPAREN .)
+    STAR            reduce using rule 33 (factor -> LPAREN expr RPAREN .)
+    SLASH           reduce using rule 33 (factor -> LPAREN expr RPAREN .)
+    PCT             reduce using rule 33 (factor -> LPAREN expr RPAREN .)
+    PLUS            reduce using rule 33 (factor -> LPAREN expr RPAREN .)
+    MINUS           reduce using rule 33 (factor -> LPAREN expr RPAREN .)
+    COMMA           reduce using rule 33 (factor -> LPAREN expr RPAREN .)
+    SEMI            reduce using rule 33 (factor -> LPAREN expr RPAREN .)
+    RBRACE          reduce using rule 33 (factor -> LPAREN expr RPAREN .)
+    RPAREN          reduce using rule 33 (factor -> LPAREN expr RPAREN .)
+    NE              reduce using rule 33 (factor -> LPAREN expr RPAREN .)
+    LT              reduce using rule 33 (factor -> LPAREN expr RPAREN .)
+    LE              reduce using rule 33 (factor -> LPAREN expr RPAREN .)
+    GE              reduce using rule 33 (factor -> LPAREN expr RPAREN .)
+    GT              reduce using rule 33 (factor -> LPAREN expr RPAREN .)
+    EQ              reduce using rule 33 (factor -> LPAREN expr RPAREN .)
+
+
+state 61
+
+    (19) expras -> expra SEMI expras .
+
+    RBRACE          reduce using rule 19 (expras -> expra SEMI expras .)
+
+
+state 62
+
+    (25) expr -> expr PLUS term .
+    (28) term -> term . STAR factor
+    (29) term -> term . SLASH factor
+    (30) term -> term . PCT factor
+
+    PLUS            reduce using rule 25 (expr -> expr PLUS term .)
+    MINUS           reduce using rule 25 (expr -> expr PLUS term .)
+    COMMA           reduce using rule 25 (expr -> expr PLUS term .)
+    SEMI            reduce using rule 25 (expr -> expr PLUS term .)
+    RBRACE          reduce using rule 25 (expr -> expr PLUS term .)
+    RPAREN          reduce using rule 25 (expr -> expr PLUS term .)
+    NE              reduce using rule 25 (expr -> expr PLUS term .)
+    LT              reduce using rule 25 (expr -> expr PLUS term .)
+    LE              reduce using rule 25 (expr -> expr PLUS term .)
+    GE              reduce using rule 25 (expr -> expr PLUS term .)
+    GT              reduce using rule 25 (expr -> expr PLUS term .)
+    EQ              reduce using rule 25 (expr -> expr PLUS term .)
+    STAR            shift and go to state 54
+    SLASH           shift and go to state 55
+    PCT             shift and go to state 56
+
+
+state 63
+
+    (26) expr -> expr MINUS term .
+    (28) term -> term . STAR factor
+    (29) term -> term . SLASH factor
+    (30) term -> term . PCT factor
+
+    PLUS            reduce using rule 26 (expr -> expr MINUS term .)
+    MINUS           reduce using rule 26 (expr -> expr MINUS term .)
+    COMMA           reduce using rule 26 (expr -> expr MINUS term .)
+    SEMI            reduce using rule 26 (expr -> expr MINUS term .)
+    RBRACE          reduce using rule 26 (expr -> expr MINUS term .)
+    RPAREN          reduce using rule 26 (expr -> expr MINUS term .)
+    NE              reduce using rule 26 (expr -> expr MINUS term .)
+    LT              reduce using rule 26 (expr -> expr MINUS term .)
+    LE              reduce using rule 26 (expr -> expr MINUS term .)
+    GE              reduce using rule 26 (expr -> expr MINUS term .)
+    GT              reduce using rule 26 (expr -> expr MINUS term .)
+    EQ              reduce using rule 26 (expr -> expr MINUS term .)
+    STAR            shift and go to state 54
+    SLASH           shift and go to state 55
+    PCT             shift and go to state 56
+
+
+state 64
+
+    (44) args -> expr .
+    (25) expr -> expr . PLUS term
+    (26) expr -> expr . MINUS term
+    (43) expr -> expr . COMMA args
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for COMMA resolved as shift
+    SEMI            reduce using rule 44 (args -> expr .)
+    RBRACE          reduce using rule 44 (args -> expr .)
+    RPAREN          reduce using rule 44 (args -> expr .)
+    NE              reduce using rule 44 (args -> expr .)
+    LT              reduce using rule 44 (args -> expr .)
+    LE              reduce using rule 44 (args -> expr .)
+    GE              reduce using rule 44 (args -> expr .)
+    GT              reduce using rule 44 (args -> expr .)
+    EQ              reduce using rule 44 (args -> expr .)
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+    COMMA           shift and go to state 52
+
+  ! PLUS            [ reduce using rule 44 (args -> expr .) ]
+  ! MINUS           [ reduce using rule 44 (args -> expr .) ]
+  ! COMMA           [ reduce using rule 44 (args -> expr .) ]
+
+
+state 65
+
+    (43) expr -> expr COMMA args .
+
+    PLUS            reduce using rule 43 (expr -> expr COMMA args .)
+    MINUS           reduce using rule 43 (expr -> expr COMMA args .)
+    COMMA           reduce using rule 43 (expr -> expr COMMA args .)
+    SEMI            reduce using rule 43 (expr -> expr COMMA args .)
+    RBRACE          reduce using rule 43 (expr -> expr COMMA args .)
+    RPAREN          reduce using rule 43 (expr -> expr COMMA args .)
+    NE              reduce using rule 43 (expr -> expr COMMA args .)
+    LT              reduce using rule 43 (expr -> expr COMMA args .)
+    LE              reduce using rule 43 (expr -> expr COMMA args .)
+    GE              reduce using rule 43 (expr -> expr COMMA args .)
+    GT              reduce using rule 43 (expr -> expr COMMA args .)
+    EQ              reduce using rule 43 (expr -> expr COMMA args .)
+
+
+state 66
+
+    (23) expr -> IF LPAREN test . RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+
+    RPAREN          shift and go to state 73
+
+
+state 67
+
+    (35) test -> expr . NE expr
+    (36) test -> expr . LT expr
+    (37) test -> expr . LE expr
+    (38) test -> expr . GE expr
+    (39) test -> expr . GT expr
+    (40) test -> expr . EQ expr
+    (25) expr -> expr . PLUS term
+    (26) expr -> expr . MINUS term
+    (43) expr -> expr . COMMA args
+
+    NE              shift and go to state 74
+    LT              shift and go to state 75
+    LE              shift and go to state 76
+    GE              shift and go to state 77
+    GT              shift and go to state 78
+    EQ              shift and go to state 79
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+    COMMA           shift and go to state 52
+
+
+state 68
+
+    (28) term -> term STAR factor .
+    (34) factor -> factor . LPAREN argsopt RPAREN
+
+    STAR            reduce using rule 28 (term -> term STAR factor .)
+    SLASH           reduce using rule 28 (term -> term STAR factor .)
+    PCT             reduce using rule 28 (term -> term STAR factor .)
+    PLUS            reduce using rule 28 (term -> term STAR factor .)
+    MINUS           reduce using rule 28 (term -> term STAR factor .)
+    COMMA           reduce using rule 28 (term -> term STAR factor .)
+    SEMI            reduce using rule 28 (term -> term STAR factor .)
+    RBRACE          reduce using rule 28 (term -> term STAR factor .)
+    RPAREN          reduce using rule 28 (term -> term STAR factor .)
+    NE              reduce using rule 28 (term -> term STAR factor .)
+    LT              reduce using rule 28 (term -> term STAR factor .)
+    LE              reduce using rule 28 (term -> term STAR factor .)
+    GE              reduce using rule 28 (term -> term STAR factor .)
+    GT              reduce using rule 28 (term -> term STAR factor .)
+    EQ              reduce using rule 28 (term -> term STAR factor .)
+    LPAREN          shift and go to state 57
+
+
+state 69
+
+    (29) term -> term SLASH factor .
+    (34) factor -> factor . LPAREN argsopt RPAREN
+
+    STAR            reduce using rule 29 (term -> term SLASH factor .)
+    SLASH           reduce using rule 29 (term -> term SLASH factor .)
+    PCT             reduce using rule 29 (term -> term SLASH factor .)
+    PLUS            reduce using rule 29 (term -> term SLASH factor .)
+    MINUS           reduce using rule 29 (term -> term SLASH factor .)
+    COMMA           reduce using rule 29 (term -> term SLASH factor .)
+    SEMI            reduce using rule 29 (term -> term SLASH factor .)
+    RBRACE          reduce using rule 29 (term -> term SLASH factor .)
+    RPAREN          reduce using rule 29 (term -> term SLASH factor .)
+    NE              reduce using rule 29 (term -> term SLASH factor .)
+    LT              reduce using rule 29 (term -> term SLASH factor .)
+    LE              reduce using rule 29 (term -> term SLASH factor .)
+    GE              reduce using rule 29 (term -> term SLASH factor .)
+    GT              reduce using rule 29 (term -> term SLASH factor .)
+    EQ              reduce using rule 29 (term -> term SLASH factor .)
+    LPAREN          shift and go to state 57
+
+
+state 70
+
+    (30) term -> term PCT factor .
+    (34) factor -> factor . LPAREN argsopt RPAREN
+
+    STAR            reduce using rule 30 (term -> term PCT factor .)
+    SLASH           reduce using rule 30 (term -> term PCT factor .)
+    PCT             reduce using rule 30 (term -> term PCT factor .)
+    PLUS            reduce using rule 30 (term -> term PCT factor .)
+    MINUS           reduce using rule 30 (term -> term PCT factor .)
+    COMMA           reduce using rule 30 (term -> term PCT factor .)
+    SEMI            reduce using rule 30 (term -> term PCT factor .)
+    RBRACE          reduce using rule 30 (term -> term PCT factor .)
+    RPAREN          reduce using rule 30 (term -> term PCT factor .)
+    NE              reduce using rule 30 (term -> term PCT factor .)
+    LT              reduce using rule 30 (term -> term PCT factor .)
+    LE              reduce using rule 30 (term -> term PCT factor .)
+    GE              reduce using rule 30 (term -> term PCT factor .)
+    GT              reduce using rule 30 (term -> term PCT factor .)
+    EQ              reduce using rule 30 (term -> term PCT factor .)
+    LPAREN          shift and go to state 57
+
+
+state 71
+
+    (34) factor -> factor LPAREN argsopt . RPAREN
+
+    RPAREN          shift and go to state 80
+
+
+state 72
+
+    (41) argsopt -> args .
+
+    RPAREN          reduce using rule 41 (argsopt -> args .)
+
+
+state 73
+
+    (23) expr -> IF LPAREN test RPAREN . LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+
+    LBRACE          shift and go to state 81
+
+
+state 74
+
+    (35) test -> expr NE . expr
+    (23) expr -> . IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+    (24) expr -> . term
+    (25) expr -> . expr PLUS term
+    (26) expr -> . expr MINUS term
+    (43) expr -> . expr COMMA args
+    (27) term -> . factor
+    (28) term -> . term STAR factor
+    (29) term -> . term SLASH factor
+    (30) term -> . term PCT factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    IF              shift and go to state 40
+    ID              shift and go to state 47
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    expr                           shift and go to state 82
+    term                           shift and go to state 41
+    factor                         shift and go to state 42
+
+state 75
+
+    (36) test -> expr LT . expr
+    (23) expr -> . IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+    (24) expr -> . term
+    (25) expr -> . expr PLUS term
+    (26) expr -> . expr MINUS term
+    (43) expr -> . expr COMMA args
+    (27) term -> . factor
+    (28) term -> . term STAR factor
+    (29) term -> . term SLASH factor
+    (30) term -> . term PCT factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    IF              shift and go to state 40
+    ID              shift and go to state 47
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    expr                           shift and go to state 83
+    term                           shift and go to state 41
+    factor                         shift and go to state 42
+
+state 76
+
+    (37) test -> expr LE . expr
+    (23) expr -> . IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+    (24) expr -> . term
+    (25) expr -> . expr PLUS term
+    (26) expr -> . expr MINUS term
+    (43) expr -> . expr COMMA args
+    (27) term -> . factor
+    (28) term -> . term STAR factor
+    (29) term -> . term SLASH factor
+    (30) term -> . term PCT factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    IF              shift and go to state 40
+    ID              shift and go to state 47
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    expr                           shift and go to state 84
+    term                           shift and go to state 41
+    factor                         shift and go to state 42
+
+state 77
+
+    (38) test -> expr GE . expr
+    (23) expr -> . IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+    (24) expr -> . term
+    (25) expr -> . expr PLUS term
+    (26) expr -> . expr MINUS term
+    (43) expr -> . expr COMMA args
+    (27) term -> . factor
+    (28) term -> . term STAR factor
+    (29) term -> . term SLASH factor
+    (30) term -> . term PCT factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    IF              shift and go to state 40
+    ID              shift and go to state 47
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    expr                           shift and go to state 85
+    term                           shift and go to state 41
+    factor                         shift and go to state 42
+
+state 78
+
+    (39) test -> expr GT . expr
+    (23) expr -> . IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+    (24) expr -> . term
+    (25) expr -> . expr PLUS term
+    (26) expr -> . expr MINUS term
+    (43) expr -> . expr COMMA args
+    (27) term -> . factor
+    (28) term -> . term STAR factor
+    (29) term -> . term SLASH factor
+    (30) term -> . term PCT factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    IF              shift and go to state 40
+    ID              shift and go to state 47
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    expr                           shift and go to state 86
+    term                           shift and go to state 41
+    factor                         shift and go to state 42
+
+state 79
+
+    (40) test -> expr EQ . expr
+    (23) expr -> . IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+    (24) expr -> . term
+    (25) expr -> . expr PLUS term
+    (26) expr -> . expr MINUS term
+    (43) expr -> . expr COMMA args
+    (27) term -> . factor
+    (28) term -> . term STAR factor
+    (29) term -> . term SLASH factor
+    (30) term -> . term PCT factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    IF              shift and go to state 40
+    ID              shift and go to state 47
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    expr                           shift and go to state 87
+    term                           shift and go to state 41
+    factor                         shift and go to state 42
+
+state 80
+
+    (34) factor -> factor LPAREN argsopt RPAREN .
+
+    LPAREN          reduce using rule 34 (factor -> factor LPAREN argsopt RPAREN .)
+    STAR            reduce using rule 34 (factor -> factor LPAREN argsopt RPAREN .)
+    SLASH           reduce using rule 34 (factor -> factor LPAREN argsopt RPAREN .)
+    PCT             reduce using rule 34 (factor -> factor LPAREN argsopt RPAREN .)
+    PLUS            reduce using rule 34 (factor -> factor LPAREN argsopt RPAREN .)
+    MINUS           reduce using rule 34 (factor -> factor LPAREN argsopt RPAREN .)
+    COMMA           reduce using rule 34 (factor -> factor LPAREN argsopt RPAREN .)
+    SEMI            reduce using rule 34 (factor -> factor LPAREN argsopt RPAREN .)
+    RBRACE          reduce using rule 34 (factor -> factor LPAREN argsopt RPAREN .)
+    RPAREN          reduce using rule 34 (factor -> factor LPAREN argsopt RPAREN .)
+    NE              reduce using rule 34 (factor -> factor LPAREN argsopt RPAREN .)
+    LT              reduce using rule 34 (factor -> factor LPAREN argsopt RPAREN .)
+    LE              reduce using rule 34 (factor -> factor LPAREN argsopt RPAREN .)
+    GE              reduce using rule 34 (factor -> factor LPAREN argsopt RPAREN .)
+    GT              reduce using rule 34 (factor -> factor LPAREN argsopt RPAREN .)
+    EQ              reduce using rule 34 (factor -> factor LPAREN argsopt RPAREN .)
+
+
+state 81
+
+    (23) expr -> IF LPAREN test RPAREN LBRACE . expras RBRACE ELSE LBRACE expras RBRACE
+    (19) expras -> . expra SEMI expras
+    (20) expras -> . expra
+    (21) expra -> . ID BECOMES expr
+    (22) expra -> . expr
+    (23) expr -> . IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+    (24) expr -> . term
+    (25) expr -> . expr PLUS term
+    (26) expr -> . expr MINUS term
+    (43) expr -> . expr COMMA args
+    (27) term -> . factor
+    (28) term -> . term STAR factor
+    (29) term -> . term SLASH factor
+    (30) term -> . term PCT factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    ID              shift and go to state 35
+    IF              shift and go to state 40
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    expras                         shift and go to state 88
+    expra                          shift and go to state 38
+    expr                           shift and go to state 39
+    term                           shift and go to state 41
+    factor                         shift and go to state 42
+
+state 82
+
+    (35) test -> expr NE expr .
+    (25) expr -> expr . PLUS term
+    (26) expr -> expr . MINUS term
+    (43) expr -> expr . COMMA args
+
+    RPAREN          reduce using rule 35 (test -> expr NE expr .)
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+    COMMA           shift and go to state 52
+
+
+state 83
+
+    (36) test -> expr LT expr .
+    (25) expr -> expr . PLUS term
+    (26) expr -> expr . MINUS term
+    (43) expr -> expr . COMMA args
+
+    RPAREN          reduce using rule 36 (test -> expr LT expr .)
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+    COMMA           shift and go to state 52
+
+
+state 84
+
+    (37) test -> expr LE expr .
+    (25) expr -> expr . PLUS term
+    (26) expr -> expr . MINUS term
+    (43) expr -> expr . COMMA args
+
+    RPAREN          reduce using rule 37 (test -> expr LE expr .)
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+    COMMA           shift and go to state 52
+
+
+state 85
+
+    (38) test -> expr GE expr .
+    (25) expr -> expr . PLUS term
+    (26) expr -> expr . MINUS term
+    (43) expr -> expr . COMMA args
+
+    RPAREN          reduce using rule 38 (test -> expr GE expr .)
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+    COMMA           shift and go to state 52
+
+
+state 86
+
+    (39) test -> expr GT expr .
+    (25) expr -> expr . PLUS term
+    (26) expr -> expr . MINUS term
+    (43) expr -> expr . COMMA args
+
+    RPAREN          reduce using rule 39 (test -> expr GT expr .)
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+    COMMA           shift and go to state 52
+
+
+state 87
+
+    (40) test -> expr EQ expr .
+    (25) expr -> expr . PLUS term
+    (26) expr -> expr . MINUS term
+    (43) expr -> expr . COMMA args
+
+    RPAREN          reduce using rule 40 (test -> expr EQ expr .)
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+    COMMA           shift and go to state 52
+
+
+state 88
+
+    (23) expr -> IF LPAREN test RPAREN LBRACE expras . RBRACE ELSE LBRACE expras RBRACE
+
+    RBRACE          shift and go to state 89
+
+
+state 89
+
+    (23) expr -> IF LPAREN test RPAREN LBRACE expras RBRACE . ELSE LBRACE expras RBRACE
+
+    ELSE            shift and go to state 90
+
+
+state 90
+
+    (23) expr -> IF LPAREN test RPAREN LBRACE expras RBRACE ELSE . LBRACE expras RBRACE
+
+    LBRACE          shift and go to state 91
+
+
+state 91
+
+    (23) expr -> IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE . expras RBRACE
+    (19) expras -> . expra SEMI expras
+    (20) expras -> . expra
+    (21) expra -> . ID BECOMES expr
+    (22) expra -> . expr
+    (23) expr -> . IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE
+    (24) expr -> . term
+    (25) expr -> . expr PLUS term
+    (26) expr -> . expr MINUS term
+    (43) expr -> . expr COMMA args
+    (27) term -> . factor
+    (28) term -> . term STAR factor
+    (29) term -> . term SLASH factor
+    (30) term -> . term PCT factor
+    (31) factor -> . ID
+    (32) factor -> . NUM
+    (33) factor -> . LPAREN expr RPAREN
+    (34) factor -> . factor LPAREN argsopt RPAREN
+
+    ID              shift and go to state 35
+    IF              shift and go to state 40
+    NUM             shift and go to state 43
+    LPAREN          shift and go to state 36
+
+    expras                         shift and go to state 92
+    expra                          shift and go to state 38
+    expr                           shift and go to state 39
+    term                           shift and go to state 41
+    factor                         shift and go to state 42
+
+state 92
+
+    (23) expr -> IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras . RBRACE
+
+    RBRACE          shift and go to state 93
+
+
+state 93
+
+    (23) expr -> IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE .
+
+    PLUS            reduce using rule 23 (expr -> IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE .)
+    MINUS           reduce using rule 23 (expr -> IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE .)
+    COMMA           reduce using rule 23 (expr -> IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE .)
+    SEMI            reduce using rule 23 (expr -> IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE .)
+    RBRACE          reduce using rule 23 (expr -> IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE .)
+    RPAREN          reduce using rule 23 (expr -> IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE .)
+    NE              reduce using rule 23 (expr -> IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE .)
+    LT              reduce using rule 23 (expr -> IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE .)
+    LE              reduce using rule 23 (expr -> IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE .)
+    GE              reduce using rule 23 (expr -> IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE .)
+    GT              reduce using rule 23 (expr -> IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE .)
+    EQ              reduce using rule 23 (expr -> IF LPAREN test RPAREN LBRACE expras RBRACE ELSE LBRACE expras RBRACE .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for PLUS in state 64 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 64 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 64 resolved as shift
